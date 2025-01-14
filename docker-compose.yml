@@ -28,9 +28,6 @@ services:
     command:
       - "start-dev"
 
-
-
-
 networks:
   whatsapp-clone-net:
     driver: bridge
@@ -38,3 +35,6 @@ networks:
 volumes:
   postgres:
     driver: local
+
+
+
