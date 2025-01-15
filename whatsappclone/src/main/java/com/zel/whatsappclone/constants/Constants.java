@@ -15,4 +15,5 @@ public class Constants {
             "/swagger-ui.html",
             "/ws/**"
     };
+    public static final int LAST_ACTIVE_INTERVAL = 5;
 }

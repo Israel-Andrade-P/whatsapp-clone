@@ -2,7 +2,7 @@ spring:
   application:
     name: whatsapp-clone
   datasource:
-    url: jdbc:postgresql:http://localhost:5432/whatsapp_clone
+    url: jdbc:postgresql:http://localhost:5435/whatsapp_clone
     username: username
     password: password
   jpa:
