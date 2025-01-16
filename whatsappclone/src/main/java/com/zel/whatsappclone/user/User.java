@@ -2,12 +2,14 @@ package com.zel.whatsappclone.user;
 
 import com.zel.whatsappclone.chat.Chat;
 import com.zel.whatsappclone.common.BaseAuditingEntity;
+import com.zel.whatsappclone.constants.Constants;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.zel.whatsappclone.constants.Constants.*;
 import static com.zel.whatsappclone.constants.Constants.LAST_ACTIVE_INTERVAL;
 
 @Entity
@@ -17,6 +19,12 @@ import static com.zel.whatsappclone.constants.Constants.LAST_ACTIVE_INTERVAL;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@NamedQuery(name = FIND_USER_BY_EMAIL,
+            query = "SELECT u FROM User u WHERE u.email = :email")
+@NamedQuery(name = FIND_ALL_USERS_EXCEPT_SELF,
+            query = "SELECT u FROM User u WHERE u.id != :publicId")
+@NamedQuery(name = FIND_USER_BY_PUBLIC_ID,
+            query = "SELECT u FROM User u WHERE u.id = :publicId")
 public class User extends BaseAuditingEntity {
     @Id
     private String id;
