@@ -2,7 +2,6 @@ package com.zel.whatsappclone.user;
 
 import com.zel.whatsappclone.chat.Chat;
 import com.zel.whatsappclone.common.BaseAuditingEntity;
-import com.zel.whatsappclone.constants.Constants;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.zel.whatsappclone.constants.Constants.*;
-import static com.zel.whatsappclone.constants.Constants.LAST_ACTIVE_INTERVAL;
 
 @Entity
 @Table(name = "users")
