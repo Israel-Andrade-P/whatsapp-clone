@@ -20,6 +20,8 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final ChatService chatService;
     private final FileService fileService;
+
+
     public void saveMessage(MessageRequest messageRequest){
         Chat chat = chatService.findByChatId(messageRequest.getChatId());
         messageRepository.save(toMessage(messageRequest, chat));

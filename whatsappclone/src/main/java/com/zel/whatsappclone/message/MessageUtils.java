@@ -1,8 +1,11 @@
 package com.zel.whatsappclone.message;
 
 import com.zel.whatsappclone.chat.Chat;
+import com.zel.whatsappclone.file.FileUtils;
 
 public class MessageUtils {
+
+    private MessageUtils() {}
 
     public static Message toMessage(MessageRequest request, Chat chat){
         return Message.builder()
@@ -24,7 +27,7 @@ public class MessageUtils {
                 .type(message.getType())
                 .state(message.getState())
                 .createdAt(message.getCreatedAt())
-                //todo read the media file
+                .media(FileUtils.readFileFromLocation(message.getMediaFilePath()))
                 .build();
     }
 
