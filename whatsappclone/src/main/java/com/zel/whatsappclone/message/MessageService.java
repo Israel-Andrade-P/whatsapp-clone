@@ -3,6 +3,7 @@ package com.zel.whatsappclone.message;
 import com.zel.whatsappclone.chat.Chat;
 import com.zel.whatsappclone.chat.ChatService;
 import com.zel.whatsappclone.file.FileService;
+import com.zel.whatsappclone.notification.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static com.zel.whatsappclone.message.MessageUtils.createImageMessage;
 import static com.zel.whatsappclone.message.MessageUtils.toMessage;
+import static com.zel.whatsappclone.notification.NotificationUtils.*;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +22,14 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final ChatService chatService;
     private final FileService fileService;
+    private final NotificationService notificationService;
 
 
     public void saveMessage(MessageRequest messageRequest){
         Chat chat = chatService.findByChatId(messageRequest.getChatId());
         messageRepository.save(toMessage(messageRequest, chat));
 
-        //todo notification
+        notificationService.sendNotification(messageRequest.getReceiverId(), buildNotificationText(chat, messageRequest));
     }
 
     public List<MessageResponse> findChatMessages(String chatId){
@@ -39,7 +42,7 @@ public class MessageService {
 
         messageRepository.setMessagesToSeenByChat(chatId, MessageState.SEEN);
 
-        //todo notification
+        notificationService.sendNotification(recipientId, buildNotificationMsgSeen(chat, getSenderId(chat, authentication), recipientId));
     }
 
     public void uploadMediaMessage(String chatId, MultipartFile file, Authentication authentication){
@@ -50,7 +53,7 @@ public class MessageService {
         final String filePath = fileService.saveFile(file, senderId);
         messageRepository.save(createImageMessage(chat, senderId, recipientId, filePath));
 
-        //todo notification
+        notificationService.sendNotification(recipientId, buildNotificationImage(chat, senderId, recipientId, filePath));
     }
 
     private String getSenderId(Chat chat, Authentication authentication) {
