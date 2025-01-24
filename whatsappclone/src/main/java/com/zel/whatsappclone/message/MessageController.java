@@ -1,5 +1,7 @@
 package com.zel.whatsappclone.message;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequestMapping("/api/v1/messages")
 @RequiredArgsConstructor
+@Tag(name = "Message")
 public class MessageController {
     private final MessageService service;
 
@@ -26,7 +29,7 @@ public class MessageController {
     @PostMapping(value = "/upload-media", consumes = "multipart/form-data")
     @ResponseStatus(CREATED)
     public void uploadMedia(@RequestParam("chat-id") String chatId,
-                            //todo add @Parameter from swagger
+                            @Parameter
                             @RequestParam("file")MultipartFile file,
                             Authentication authentication){
         service.uploadMediaMessage(chatId, file, authentication);

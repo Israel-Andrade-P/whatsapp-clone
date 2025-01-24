@@ -1,5 +1,10 @@
 package com.zel.whatsappclone.security;
 
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.OAuthFlow;
+import io.swagger.v3.oas.annotations.security.OAuthFlows;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +26,18 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@SecurityScheme(
+        name = "keycloak",
+        type = SecuritySchemeType.OAUTH2, bearerFormat = "JWT",
+        scheme = "bearer",
+        in = SecuritySchemeIn.HEADER,
+        flows = @OAuthFlows(
+                password = @OAuthFlow(
+                        authorizationUrl = "http://localhost:9090/realms/whatsapp-clone/protocol/openid-connect/auth",
+                        tokenUrl = "http://localhost:9090/realms/whatsapp-clone/protocol/openid-connect/token"
+                )
+        )
+)
 public class SecurityConfig {
 
     @Bean

@@ -3,14 +3,14 @@ services:
     image: postgres
     container_name: postgres-zap-clone
     environment:
-      POSTGRES_USER: username
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: zel
+      POSTGRES_PASSWORD: 123
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: whatsapp_clone
     volumes:
       - postgres:/data/postgres
     ports:
-      - 5435:5432
+      - 5437:5432
     networks:
       - whatsapp-clone-net
     restart: unless-stopped
