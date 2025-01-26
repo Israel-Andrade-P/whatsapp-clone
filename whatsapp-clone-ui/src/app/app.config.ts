@@ -8,16 +8,16 @@ import { keycloakHttpInterceptor } from './utils/http/keycloak-http.interceptor'
 
 export const appConfig: ApplicationConfig = {
   providers: [
-  provideZoneChangeDetection({ eventCoalescing: true }),
-  provideRouter(routes),
-  provideHttpClient(
-    withInterceptors([keycloakHttpInterceptor])
-  ),
-  provideAppInitializer(() => {
-    const initFn = ((key : KeycloakService) => {
-      return () => key.init();
-    }) (inject(KeycloakService));
-    return initFn();
-  })
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideHttpClient(
+      withInterceptors([keycloakHttpInterceptor])
+    ),
+    provideAppInitializer(() => {
+      const initFn = ((key: KeycloakService) => {
+        return () => key.init()
+      })(inject(KeycloakService));
+      return initFn();
+    })
   ]
 };
