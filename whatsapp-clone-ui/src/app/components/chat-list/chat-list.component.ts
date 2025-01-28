@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input, InputSignal } from '@angular/core';
+import { ChatResponse } from '../../services/models';
 
 @Component({
   selector: 'app-chat-list',
@@ -8,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class ChatListComponent {
 
+  chats: InputSignal<ChatResponse[]> = input<ChatResponse[]>([]);
+  searchNewContact: boolean = false;
+
+  searchContact(){
+
+  }
+
+  chatClicked(chat: ChatResponse){
+
+  }
 }
